@@ -1,0 +1,188 @@
+﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HarpenTech.Views.RecievePage.RecieveView"
+             Title="Property Details">
+
+    <ScrollView>
+        <VerticalStackLayout Margin="8">
+
+            <!-- Property Images Separator -->
+            <Label Text="Property Images" FontAttributes="Bold" FontSize="Medium"/>
+            <BoxView HeightRequest="1" BackgroundColor="Gray" Margin="0,5,0,5"/>
+
+            <!-- Property Images in Horizontal Layout -->
+            <CollectionView ItemsSource="{Binding Root.data.propertyListing[0].property_images}" 
+                            HorizontalOptions="FillAndExpand"
+                            HeightRequest="300"
+                            Margin="0,0,0,10">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Image Source="{Binding image_url}" 
+                               Aspect="AspectFill" 
+                               WidthRequest="350" 
+                               HeightRequest="300"/>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Horizontal" ItemSpacing="10" />
+                </CollectionView.ItemsLayout>
+            </CollectionView>
+
+            <!-- Property Details Section -->
+            <Label Text="Property Details" FontAttributes="Bold" FontSize="Large" Margin="0,10,0,5"/>
+            <Frame Margin="0,0,0,10" Padding="10" BorderColor="Gray" CornerRadius="5">
+                <VerticalStackLayout>
+
+                    <!-- Rent and Brokerage -->
+                    <HorizontalStackLayout>
+                        <Label Text="Rent:" FontAttributes="Bold" FontSize="Medium"/>
+                        <Label Text="{Binding Root.data.propertyListing[0].rent, StringFormat='₹ {0:F0}'}" FontSize="Medium" HorizontalOptions="StartAndExpand"/>
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout>
+                        <Label Text="Brokerage:" FontAttributes="Bold" FontSize="Medium"/>
+                        <Label Text="{Binding Root.data.propertyListing[0].brokerage, StringFormat='₹ {0:F0}'}" FontSize="Medium" HorizontalOptions="StartAndExpand"/>
+                    </HorizontalStackLayout>
+
+                    <!-- Address Details -->
+                    <HorizontalStackLayout>
+                        <Label Text="Address:" FontAttributes="Bold" FontSize="Medium"/>
+                        <Label Text="{Binding Root.data.propertyListing[0].address}" FontSize="Medium" HorizontalOptions="StartAndExpand"/>
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout>
+                        <Label Text="Full Address:" FontAttributes="Bold" FontSize="Medium"/>
+                        <Label Text="{Binding Root.data.propertyListing[0].full_address}" FontSize="Medium" HorizontalOptions="StartAndExpand"/>
+                    </HorizontalStackLayout>
+
+                    <!-- Location and Directions Row -->
+                    <HorizontalStackLayout Margin="-10,10,0,0">
+                        <Label Text="Get Directions:" FontAttributes="Bold" Margin="10,0,0,0" FontSize="Medium"/>
+                        <Button Text="Open Map" WidthRequest="100" Margin="10,0,0,0" Padding="-8"
+                                Command="{Binding OpenMapCommand}" 
+                                CommandParameter="{Binding Root.data.propertyListing[0]}"
+                                FontSize="Small" />
+                    </HorizontalStackLayout>
+
+                    <!-- Property Description -->
+                    <HorizontalStackLayout>
+                        <Label Text="Description:" FontAttributes="Bold" FontSize="Medium"/>
+                        <Label Text="{Binding Root.data.propertyListing[0].description}" FontSize="Medium" HorizontalOptions="StartAndExpand"/>
+                    </HorizontalStackLayout>
+
+                    <!-- Additional Property Details -->
+                    <HorizontalStackLayout>
+                        <Label Text="Bedrooms:" FontAttributes="Bold" FontSize="Medium"/>
+                        <Label Text="{Binding Root.data.propertyListing[0].bedroom}" FontSize="Medium" HorizontalOptions="StartAndExpand"/>
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout>
+                        <Label Text="Washrooms:" FontAttributes="Bold" FontSize="Medium" />
+                        <Label Text="{Binding Root.data.propertyListing[0].washroom}" FontSize="Medium" HorizontalOptions="StartAndExpand"/>
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout>
+                        <Label Text="Furnished Type:" FontAttributes="Bold" FontSize="Medium"/>
+                        <Label Text="{Binding Root.data.propertyListing[0].furnished_id}" FontSize="Medium" HorizontalOptions="StartAndExpand"/>
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout>
+                        <Label Text="Car Parking:" FontAttributes="Bold" FontSize="Medium"/>
+                        <Label Text="{Binding Root.data.propertyListing[0].car_parking}" FontSize="Medium" HorizontalOptions="StartAndExpand"/>
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout>
+                        <Label Text="Floor:" FontAttributes="Bold" FontSize="Medium"/>
+                        <Label Text="{Binding Root.data.propertyListing[0].floor}" FontSize="Medium" HorizontalOptions="StartAndExpand"/>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- User Details Section -->
+            <Label Text="User Details" FontAttributes="Bold" FontSize="Large" Margin="0,10,0,5"/>
+            <Frame Margin="0,0,0,10" Padding="10" BorderColor="Gray" CornerRadius="5">
+                <VerticalStackLayout>
+
+                    <HorizontalStackLayout>
+                        <Label Text="Name:" FontAttributes="Bold" FontSize="Medium"/>
+                        <Label Text="{Binding Root.data.propertyListing[0].user_detail.name}" FontSize="Medium" HorizontalOptions="StartAndExpand"/>
+                    </HorizontalStackLayout>
+
+                    <!-- Phone Number (Clickable) -->
+                    <HorizontalStackLayout>
+                        <Label Text="Phone Number:" FontAttributes="Bold" FontSize="Medium"/>
+                        <ContentView>
+                            <Label Text="{Binding Root.data.propertyListing[0].user_detail.phone_number}" 
+                                   FontSize="Medium" 
+                                   TextColor="Blue" 
+                                   x:Name="PhoneNumberLabel"/>
+                            <ContentView.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding PhoneTapCommand}" />
+                            </ContentView.GestureRecognizers>
+                        </ContentView>
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout>
+                        <Label Text="User Type:" FontAttributes="Bold" FontSize="Medium"/>
+                        <Label Text="{Binding Root.data.propertyListing[0].user_detail.user_type}" FontSize="Medium" HorizontalOptions="StartAndExpand"/>
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout>
+                        <Label Text="Gender:" FontAttributes="Bold" FontSize="Medium"/>
+                        <Label Text="{Binding Root.data.propertyListing[0].user_detail.gender}" FontSize="Medium" HorizontalOptions="StartAndExpand"/>
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout>
+                        <Label Text="User Address:" FontAttributes="Bold" FontSize="Medium"/>
+                        <Label Text="{Binding Root.data.propertyListing[0].user_detail.address}" FontSize="Medium" HorizontalOptions="StartAndExpand"/>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Property Type Section -->
+            <Label Text="Property Type" FontAttributes="Bold" FontSize="Large" Margin="0,10,0,5"/>
+            <HorizontalStackLayout>
+                <Label Text="Type:" FontAttributes="Bold" FontSize="Medium"/>
+                <Label Text="{Binding Root.data.propertyListing[0].property_type.name}" FontSize="Medium" HorizontalOptions="StartAndExpand"/>
+            </HorizontalStackLayout>
+
+            <!-- Extra Property Info Section -->
+            <Label Text="Extra Information" FontAttributes="Bold" FontSize="Large" Margin="0,10,0,5"/>
+            <Frame Margin="0,0,0,10" Padding="10" BorderColor="Gray" CornerRadius="5">
+                <VerticalStackLayout>
+
+                    <HorizontalStackLayout>
+                        <Label Text="Living Couple Allowed:" FontAttributes="Bold" FontSize="Medium"/>
+                        <Label Text="{Binding Root.data.propertyListing[0].property_extrainfo.livin_couple_allowed}" FontSize="Medium" HorizontalOptions="StartAndExpand"/>
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout>
+                        <Label Text="Fully Independent:" FontAttributes="Bold" FontSize="Medium"/>
+                        <Label Text="{Binding Root.data.propertyListing[0].property_extrainfo.fully_independent}" FontSize="Medium" HorizontalOptions="StartAndExpand"/>
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout>
+                        <Label Text="Student Allowed:" FontAttributes="Bold" FontSize="Medium"/>
+                        <Label Text="{Binding Root.data.propertyListing[0].property_extrainfo.student_allowed}" FontSize="Medium" HorizontalOptions="StartAndExpand"/>
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout>
+                        <Label Text="Owner Free:" FontAttributes="Bold" FontSize="Medium"/>
+                        <Label Text="{Binding Root.data.propertyListing[0].property_extrainfo.owner_free}" FontSize="Medium" HorizontalOptions="StartAndExpand"/>
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout>
+                        <Label Text="Rent Negotiable:" FontAttributes="Bold" FontSize="Medium"/>
+                        <Label Text="{Binding Root.data.propertyListing[0].property_extrainfo.rent_negotiable}" FontSize="Medium" HorizontalOptions="StartAndExpand"/>
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout>
+                        <Label Text="Other Info:" FontAttributes="Bold" FontSize="Medium"/>
+                        <Label Text="{Binding Root.data.propertyListing[0].property_extrainfo.other_info}" FontSize="Medium" HorizontalOptions="StartAndExpand"/>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Frame>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
